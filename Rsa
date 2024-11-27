@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    int p;
+    int q;
+    printf("enter the p: \n");
+     scanf("%d",&p);
+     printf("enter the q: \n");
+     scanf("%d",&q);
+    int n = p * q;       
+    int phi = (p - 1) * (q - 1); 
+
+    int e = 7; 
+
+    int d = 0;
+    for (int i = 1; i < phi; i++) {
+        if ((e * i) % phi == 1) {
+            d = i;
+            break;
+        }
+    }
+
+    printf("Public Key: (e = %d, n = %d)\n", e, n);
+    printf("Private Key: (d = %d, n = %d)\n", d, n);
+
+    int message;
+    printf("Enter a message (integer less than %d): ", n);
+    scanf("%d", &message);
+
+    int encrypted = 1;
+    for (int i = 0; i < e; i++) {
+        encrypted = (encrypted * message) % n;
+    }
+    printf("Encrypted Message: %d\n", encrypted);
+
+    int decrypted = 1;
+    for (int i = 0; i < d; i++) {
+        decrypted = (decrypted * encrypted) % n;
+    }
+    printf("Decrypted Message: %d\n", decrypted);
+
+    return 0;
+}
