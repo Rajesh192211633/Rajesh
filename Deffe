@@ -1,0 +1,47 @@
+#include <stdio.h>
+
+int main() {
+    int P = 23;
+    int G = 5;  
+
+    printf("Publicly Shared Values:\n");
+    printf("Prime (P): %d\n", P);
+    printf("Primitive Root (G): %d\n", G);
+
+    int privateKeyAlice = 6; 
+    int privateKeyBob = 15;  
+
+    printf("\nPrivate Keys:\n");
+    printf("Alice's Private Key: %d\n", privateKeyAlice);
+    printf("Bob's Private Key: %d\n", privateKeyBob);
+
+    int publicKeyAlice = 1; 
+    for (int i = 0; i < privateKeyAlice; i++) {
+        publicKeyAlice = (publicKeyAlice * G) % P; 
+    }
+
+    int publicKeyBob = 1; 
+    for (int i = 0; i < privateKeyBob; i++) {
+        publicKeyBob = (publicKeyBob * G) % P; 
+    }
+
+    printf("\nPublic Keys:\n");
+    printf("Alice's Public Key: %d\n", publicKeyAlice);
+    printf("Bob's Public Key: %d\n", publicKeyBob);
+
+    int sharedSecretAlice = 1; 
+    for (int i = 0; i < privateKeyAlice; i++) {
+        sharedSecretAlice = (sharedSecretAlice * publicKeyBob) % P; 
+    }
+
+    int sharedSecretBob = 1; 
+    for (int i = 0; i < privateKeyBob; i++) {
+        sharedSecretBob = (sharedSecretBob * publicKeyAlice) % P; 
+    }
+
+    printf("\nShared Secret (Computed by Both Parties):\n");
+    printf("Alice's Computed Secret: %d\n", sharedSecretAlice);
+    printf("Bob's Computed Secret: %d\n", sharedSecretBob);
+
+    return 0;
+}
